@@ -3,9 +3,11 @@ import { useGSAP } from '@gsap/react';
 import {useRef} from 'react'
 import { Tooltip } from 'react-tooltip';
 import {gsap} from 'gsap'
+import useWindowStore from '#store/window';
 
 
 const Dock = () => {
+    const {openWindow,closeWindow,windows}=useWindowStore();
     const dockRef=useRef(null);
     useGSAP(()=>{
         const dock=dockRef.current;
@@ -36,7 +38,7 @@ const Dock = () => {
             animateIcon(e.clientX - left);
         }
 
-        const restIcons=()=>icons.forEach((icon)=>gsap.to(icon,{
+        const restIcons=()=>icon.forEach((icon)=>gsap.to(icon,{
             scale:1,
             y:0,
             direction:0.3,
@@ -51,25 +53,38 @@ const Dock = () => {
     }
     },[])
    
-    const toggleApp=(app)=>{}
+    const toggleApp=(app)=>{
+        console.log(app)
+        if(!app.canOpen) return;
+
+        const window= windows[app.id];
+
+        if(window.isOpen){
+            closeWindow(app.id)
+        }else{
+            openWindow(app.id)
+        }
+
+        console.log(windows)
+    }
   return (
     <section id="dock">
       <div ref={dockRef} className='dock-container'>
-        {dockApps.map(({id,name,icon,canOpen})=>(
-            <div key={id} className="relative flex justify-center">
+        {dockApps.map((app)=>(
+            <div key={app.id} className="relative flex justify-center">
                 <button type="button" 
                 className='dock-icon' 
-                area-label={name} 
+                area-label={app.name} 
                 data-tooltip-id="dock-tooltip"
-                data-tooltip-content={name}
+                data-tooltip-content={app.name}
                 data-tooltip-delay-show={150}
-                disabled={!canOpen}
-                onClick={()=>toggleApp(id,canOpen)}
+                disabled={!app.canOpen}
+                onClick={()=>toggleApp(app)}
                 >
-                    <img src={`/images/${icon}`}
+                    <img src={`/images/${app.icon}`}
                     alt='name'
                     loading='lazy'
-                    className={canOpen?"":"opacity-60"}></img>
+                    className={app.canOpen?"":"opacity-60"}></img>
                 </button>
             </div>
         ))}
