@@ -62,7 +62,7 @@ export default function Dock() {
     <section id="dock">
       <div ref={dockRef} className="dock-container">
         {dockApps.map((app) => (
-          <div key={app.id} className="relative flex justify-center">
+          <div key={app.id} className=" flex items-center">
             <button
               type="button"
               className="dock-icon"
