@@ -1,11 +1,12 @@
 import React from 'react'
-import { Check } from 'lucide-react';
+import { Check,Flag } from 'lucide-react';
 import windowWrapper from '#hoc/WindowWrapper';
 import { techStack } from '#constants';
+import { WindowControls } from '#components';
 const Terminal = () => {
   return (<> 
   <div id="window-header">
-      <p>Window Controls</p>
+      <WindowControls target="terminal"/>
       <h2>Tech Stack</h2>
     </div>
 
@@ -26,7 +27,7 @@ const Terminal = () => {
       <Check className="check" size={20} />
       <h3 className="font-semibold">{category}</h3>
 
-      <ul className="flex gap-2 flex-wrap">
+      <ul className="flex justify-items-stretch">
         {items.map((item, i) => (
           <li key={i}>
             {item}
@@ -37,6 +38,14 @@ const Terminal = () => {
     </li>
   ))}
 </ul>
+  <div className='footnote'></div>
+  <p>
+    <Check size={20}/>
+    5 of 5 stack loaded successfully (100%)
+  </p>
+  <p className='text-black'>
+    <Flag size={15} fill='black'/>Render time: 6ms
+  </p>
     </div>
     </>)
 }
