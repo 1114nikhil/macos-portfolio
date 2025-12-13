@@ -77,25 +77,18 @@ const dockApps = [
 const blogPosts = [
   {
     id: 1,
-    date: "Nov 24, 2025",
+    date: "June 24, 2022",
     title:
-      "Promoted to Secretary of External Affairs at Information Technology Club of Rouf College (ITCRC)",
-    image: "/images/blog1.png",
-    link: "https://www.linkedin.com/posts/talha-shahid-khan_im-happy-to-share-that-ive-been-promoted-activity-7398707924333903872-9oYX?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEsGpv0BnBQrr7885jnk3iyj2t36Bxea4M8",
+      "My Profile: Showcasing My Journey as a Developer",
+    image: "/images/blog1.jpeg",
+    link: "https://www.linkedin.com/in/tknikhil/",
   },
   {
     id: 2,
-    date: "Aug 28, 2025",
-    title: "My first SaaS project",
-    image: "/images/blog2.png",
-    link: "https://www.linkedin.com/posts/talha-shahid-khan_indiehacker-saas-ai-activity-7319459701761441793-8RZj?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEsGpv0BnBQrr7885jnk3iyj2t36Bxea4M8",
-  },
-  {
-    id: 3,
-    date: "Aug 15, 2025",
-    title: "My detailed Portfolio",
-    image: "/images/blog3.png",
-    link: "https://www.facebook.com/share/p/177mffUPwc/",
+    date: "Sep 2022",
+    title: "Skey-ERP: Revolutionizing Business Management with SaaS ",
+    image: "/images/feature4.svg",
+    link: "https://skeyerp.com/",
   },
 ];
 
