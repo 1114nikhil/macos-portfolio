@@ -9,16 +9,17 @@ const Contact = () => {
         <WindowControls target="contact" />
         <h2>Contact</h2>
       </div>
-      <div className="p-5 space-y-5">
+      <div className="p-5 space-y-2 items-center flex flex-col">
         <img
-          src="/images/talha3.png"
+          src="/images/me.jpeg"
           alt="me"
           className="w-20   rounded-full"
         />
         <h3>Let's Connect</h3>
-        <p>Got an idea? A bug to smash? Or just wanna talk tech? I'm in</p>
-        <p>talhashahidkhan49@gmail.com</p>
-        <ul>
+        <p>I enjoy turning complex problems into scalable full-stack solutions that deliver real business value.
+Let’s connect if you’re building something impactful.</p>
+        <p>nikhiltk1114@gmail.com</p>
+        <ul className="flex gap-2 w-full p-0 m-0 list-none">
           {socials.map(({ id, bg, link, icon, text }) => (
             <li key={id} style={{ backgroundColor: bg }}>
               <a
