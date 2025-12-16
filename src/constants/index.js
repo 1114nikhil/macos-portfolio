@@ -133,7 +133,7 @@ const socials = [
     text: "Portfolio",
     icon: "/icons/atom.svg",
     bg: "#4bcb63",
-    link: "https://nikhiltk.vercel.app/",
+    link: "https://nikhiltk.firebaseapp.com/",
   },
   {
     id: 4,
