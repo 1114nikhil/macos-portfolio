@@ -3,10 +3,13 @@ import Welcome from '#components/Welcome'
 import Dock from '#components/Dock'
 import WindowControls from './WindowControls'
 import Home from '#components/Home'
+import IOSLayout from './IOSLayout'
+
 export {
   Navbar,
   Welcome,
   Dock,
   WindowControls,
-  Home
+  Home,
+  IOSLayout
 }

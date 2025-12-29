@@ -14,7 +14,7 @@ const WindowWrapper = (Component, windowKey) => {
     /* OPEN animation */
     useGSAP(() => {
       const el = windowRef.current;
-      if (!el || !isOpen || isMinimized) return;
+      if (!el || !isOpen || isMinimized || props.mobile) return;
 
       el.style.display = "block";
       gsap.fromTo(
@@ -27,7 +27,7 @@ const WindowWrapper = (Component, windowKey) => {
     /* Drag (disabled when maximized) */
     useGSAP(() => {
       const el = windowRef.current;
-      if (!el || isMaximized) return;
+      if (!el || isMaximized || props.mobile) return;
 
       const [instance] = Draggable.create(el, {
         onPress: () => focusWindow(windowKey),
@@ -48,43 +48,43 @@ const WindowWrapper = (Component, windowKey) => {
     }, [isMaximized]);
 
     /* Minimize logic (macOS style) */
-useLayoutEffect(() => {
-  const el = windowRef.current;
-  if (!el) return;
+    useLayoutEffect(() => {
+      const el = windowRef.current;
+      if (!el) return;
 
-  if (isMinimized) {
-    gsap.to(el, {
-      scale: 0.2,
-      y: window.innerHeight / 2,
-      opacity: 0,
-      duration: 0.4,
-      ease: "power4.in",
-      onComplete: () => {
+      if (isMinimized) {
+        gsap.to(el, {
+          scale: 0.2,
+          y: window.innerHeight / 2,
+          opacity: 0,
+          duration: 0.4,
+          ease: "power4.in",
+          onComplete: () => {
+            el.style.display = "none";
+          },
+        });
+      } else if (isOpen) {
+        el.style.display = "block";
+        gsap.fromTo(
+          el,
+          {
+            scale: 0.2,
+            y: window.innerHeight / 2,
+            opacity: 0,
+          },
+          {
+            scale: 1,
+            y: 0,
+            opacity: 1,
+            duration: 0.35,
+            ease: "power3.out",
+          }
+        );
+      } else {
+        // ✅ THIS IS WHAT WAS MISSING
         el.style.display = "none";
-      },
-    });
-  } else if (isOpen) {
-    el.style.display = "block";
-    gsap.fromTo(
-      el,
-      {
-        scale: 0.2,
-        y: window.innerHeight / 2,
-        opacity: 0,
-      },
-      {
-        scale: 1,
-        y: 0,
-        opacity: 1,
-        duration: 0.35,
-        ease: "power3.out",
       }
-    );
-  } else {
-    // ✅ THIS IS WHAT WAS MISSING
-    el.style.display = "none";
-  }
-}, [isMinimized, isOpen]);
+    }, [isMinimized, isOpen]);
 
 
     return (
@@ -92,9 +92,8 @@ useLayoutEffect(() => {
         id={windowKey}
         ref={windowRef}
         style={{ zIndex }}
-        className={`absolute ${
-          isMaximized ? "window-maximized" : "window-normal"
-        }`}
+        className={`absolute ${props.mobile ? "!relative !inset-0 !w-full !h-full" : isMaximized ? "window-maximized" : "window-normal"
+          }`}
       >
         <Component {...props} />
       </section>

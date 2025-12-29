@@ -36,23 +36,31 @@ body {
     @apply w-dvw h-dvh overflow-hidden;
   }
 
-nav {
-  @apply flex justify-between items-center 
-         bg-black/10 backdrop-blur-2xl
-         /* border border-white/20 */
-         shadow-lg shadow-black/10
-         p-2 px-5 select-none ;
+  nav {
+    @apply flex justify-between items-center bg-black/10 backdrop-blur-2xl
+    /* border border-white/20 */
+    shadow-lg shadow-black/10 p-2 px-5 select-none;
 
-  div {
-    @apply flex items-center max-sm:w-full max-sm:justify-center gap-5;
+    div {
+      @apply flex items-center gap-5;
 
-    &:last-child {
-      @apply max-sm:hidden;
+      @media (max-width: 640px) {
+        @apply w-full justify-center;
+      }
+
+      &:last-child {
+        @media (max-width: 640px) {
+          @apply hidden;
+        }
+      }
     }
-  } 
 
     ul {
-      @apply flex items-center gap-5 max-sm:hidden;
+      @apply flex items-center gap-5;
+
+      @media (max-width: 640px) {
+        @apply hidden;
+      }
 
       p {
         @apply text-sm cursor-pointer hover:underline transition-all;
@@ -71,7 +79,11 @@ nav {
   }
 
   #welcome {
-    @apply text-[#E6E1EF] flex flex-col justify-center items-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none max-sm:h-screen max-sm:w-full max-sm:px-10;
+    @apply text-[#E6E1EF] flex flex-col justify-center items-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none;
+
+    @media (max-width: 640px) {
+      @apply h-screen w-full px-10;
+    }
 
     .small-screen {
       @apply sm:hidden m-7 bg-red-300/20 backdrop-blur-lg p-3 rounded-md absolute top-10;
@@ -83,21 +95,23 @@ nav {
   }
 
   #dock {
-    @apply absolute bottom-5 left-1/2 -translate-x-1/2 z-50 select-none max-sm:hidden;
+    @apply absolute bottom-5 left-1/2 -translate-x-1/2 z-50 select-none;
+
+    @media (max-width: 640px) {
+      @apply hidden;
+    }
 
     .dock-container {
-  @apply relative bg-black/10 backdrop-blur-2xl
-         border border-white/20 
-         rounded-2xl shadow-xl shadow-black/50 p-1.5 flex items-end gap-1.5;
+      @apply relative bg-black/10 backdrop-blur-2xl border border-white/20 rounded-2xl shadow-xl shadow-black/50 p-1.5 flex items-end gap-1.5;
 
-}
+    }
 
-.dock-container::before {
-  content: "";
-  @apply absolute inset-0 rounded-2xl bg-black/20;
-  mask-image: linear-gradient(to bottom, black 0%, transparent 60%);
-  pointer-events: none;
-}
+    .dock-container::before {
+      content: "";
+      @apply absolute inset-0 rounded-2xl bg-black/20;
+      mask-image: linear-gradient(to bottom, black 0%, transparent 60%);
+      pointer-events: none;
+    }
 
     .tooltip {
       @apply !py-1 !px-3 !w-fit !text-center !text-xs !rounded-md !bg-blue-200 !text-blue-900 !shadow-2xl;
@@ -111,31 +125,34 @@ nav {
       }
     }
   }
-.window-normal {
-  @apply top-32 left-1/12;
-}
 
-.window-maximized {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-}
+  .window-normal {
+    @apply top-32 left-1/12;
+  }
 
-/* OVERRIDE terminal absolute positioning */
-.window-maximized  {
-  position: relative !important; /* 🔑 THIS LINE */
-  top: 0 !important;
-  left: 0 !important;
+  .window-maximized {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+  }
 
-  width: 100vw !important;
-  height: 100vh !important;
+  /* OVERRIDE terminal absolute positioning */
+  .window-maximized {
+    position: relative !important;
+    /* 🔑 THIS LINE */
+    top: 0 !important;
+    left: 0 !important;
 
-  max-width: none !important;
-  max-height: none !important;
+    width: 100vw !important;
+    height: 100vh !important;
 
-  border-radius: 0 !important;
-}
+    max-width: none !important;
+    max-height: none !important;
+
+    border-radius: 0 !important;
+  }
+
   #window-controls {
     @apply flex gap-2;
 
@@ -157,28 +174,52 @@ nav {
   }
 
   #safari {
-    @apply  bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+
+    @media (max-width: 768px) {
+      @apply static w-full h-full rounded-none;
+    }
 
     .search {
       @apply flex items-center gap-3 w-2/3 bg-white border border-gray-300 rounded-lg px-3 py-2;
 
+      @media (max-width: 768px) {
+        @apply w-full;
+      }
+
       input {
-        @apply placeholder:text-gray-400;
+        @apply placeholder:text-gray-400 w-full;
       }
     }
 
     .blog {
       @apply bg-white p-10 max-w-3xl mx-auto;
 
+      @media (max-width: 768px) {
+        @apply p-4 max-w-full;
+      }
+
       h2 {
         @apply text-xl font-bold text-pink-600 mb-10;
+
+        @media (max-width: 768px) {
+          @apply mb-5;
+        }
       }
 
       .blog-post {
         @apply grid grid-cols-12 space-x-5;
 
+        @media (max-width: 768px) {
+          @apply flex flex-col space-x-0 space-y-4;
+        }
+
         img {
           @apply size-full rounded-md object-cover;
+
+          @media (max-width: 768px) {
+            @apply h-48;
+          }
         }
 
         .content {
@@ -201,61 +242,89 @@ nav {
   }
 
   #terminal {
-  @apply    bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
 
-  h2 {
-    @apply font-bold text-sm text-center w-full;
-  }
-
-  .techstack {
-    @apply text-sm font-roboto p-5;
-
-    .label {
-      @apply flex items-center ms-10 mt-7 gap-5 font-semibold;
+    @media (max-width: 768px) {
+      @apply static w-full h-full rounded-none;
     }
 
-    .content {
-      @apply py-5 my-5 border-y border-dashed space-y-2;
+    h2 {
+      @apply font-bold text-sm text-center w-full;
+    }
 
-      li {
-        /* 🔑 THIS IS THE KEY FIX */
-        @apply flex items-start;
+    .techstack {
+      @apply text-sm font-roboto p-5;
 
-        .check {
-          @apply text-[#00A154] w-5 mt-1;
+      @media (max-width: 768px) {
+        @apply p-2;
+      }
+
+      .label {
+        @apply flex items-center ms-10 mt-7 gap-5 font-semibold;
+
+        @media (max-width: 768px) {
+          @apply ms-0;
         }
+      }
 
-        h3 {
-          @apply font-semibold text-[#00A154] w-32 ms-5 shrink-0;
+      .content {
+        @apply py-5 my-5 border-y border-dashed space-y-2;
+
+        li {
+          /* 🔑 THIS IS THE KEY FIX */
+          @apply flex items-start;
+
+          @media (max-width: 768px) {
+            @apply flex-col;
+          }
+
+          .check {
+            @apply text-[#00A154] w-5 mt-1;
+
+            @media (max-width: 768px) {
+              @apply hidden;
+            }
+          }
+
+          h3 {
+            @apply font-semibold text-[#00A154] w-32 ms-5 shrink-0;
+
+            @media (max-width: 768px) {
+              @apply ms-0 w-full mb-1;
+            }
+          }
+
+          ul {
+            @apply flex flex-wrap gap-x-2 gap-y-1 text-gray-700;
+          }
+
+          ul li {
+            @apply whitespace-nowrap;
+          }
         }
+      }
 
-        ul {
-          @apply flex flex-wrap gap-x-2 gap-y-1 text-gray-700;
-        }
+      .footnote {
+        @apply text-[#00A154] space-y-1;
 
-        ul li {
-          @apply whitespace-nowrap;
+        p {
+          @apply flex items-center;
+
+          svg {
+            @apply w-5 me-5;
+          }
         }
       }
     }
-
-    .footnote {
-      @apply text-[#00A154] space-y-1;
-
-      p {
-        @apply flex items-center;
-
-        svg {
-          @apply w-5 me-5;
-        }
-      }
-    }
   }
-}
 
 
   #contact {
     @apply max-w-2xl absolute top-60 left-5/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+
+    @media (max-width: 768px) {
+      @apply static w-full h-full rounded-none max-w-none flex flex-col;
+    }
 
     h2 {
       @apply font-bold text-sm text-center w-full;
@@ -268,12 +337,25 @@ nav {
     ul {
       @apply flex items-center gap-3;
 
+      @media (max-width: 768px) {
+        @apply flex-col w-full;
+      }
+
       li {
         @apply rounded-lg p-3 w-60 hover:-translate-y-0.5 hover:scale-105 origin-center transition-all duration-300;
 
-        a {
-          @apply space-y-5;
+        @media (max-width: 768px) {
+          @apply w-full;
         }
+
+        a {
+          @apply space-y-5 flex items-center gap-4;
+
+          @media (max-width: 768px) {
+            @apply justify-center;
+          }
+        }
+
         p {
           @apply font-semibold text-sm text-white;
         }
@@ -282,18 +364,36 @@ nav {
   }
 
   #photos {
-    @apply  bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply max-w-3xl absolute top-96 left-1/2 -translate-y-1/2 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+
+    @media (max-width: 768px) {
+      @apply static w-full h-full rounded-none max-w-none flex flex-col;
+    }
 
     .sidebar {
       @apply w-3/12 flex-none bg-gray-50 border-r border-gray-200 flex flex-col p-5;
 
+      @media (max-width: 768px) {
+        @apply w-full h-auto flex-row p-2 overflow-x-auto;
+      }
+
       h2 {
         @apply text-xs font-medium text-gray-400 mb-1;
+
+        @media (max-width: 768px) {
+          @apply hidden;
+        }
       }
 
       ul {
+        @apply max-md:flex max-md:gap-2;
+
         li {
           @apply flex space-y-1 items-center gap-2 px-3 py-2 rounded-md cursor-pointer transition-colors;
+
+          @media (max-width: 768px) {
+            @apply whitespace-nowrap;
+          }
 
           &:first-child {
             @apply bg-blue-100 text-blue-700;
@@ -313,12 +413,30 @@ nav {
     .gallery {
       @apply p-5;
 
+      @media (max-width: 768px) {
+        @apply flex-1 overflow-y-auto;
+      }
+
       ul {
         @apply grid grid-cols-5 grid-rows-5 gap-2.5;
+
+        @media (max-width: 768px) {
+          @apply grid-cols-2 grid-rows-none auto-rows-min;
+        }
 
         li {
           img {
             @apply size-full object-cover rounded-lg;
+          }
+
+          /* Reset complicated grid for mobile */
+          &:first-child,
+          &:nth-child(2),
+          &:nth-child(3),
+          &:last-child {
+            @media (max-width: 768px) {
+              @apply col-auto row-auto col-span-1 row-span-1;
+            }
           }
 
           &:first-child {
@@ -344,6 +462,10 @@ nav {
   #resume {
     @apply w-fit h-fit absolute top-16 left-7/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
 
+    @media (max-width: 768px) {
+      @apply static w-full h-full rounded-none;
+    }
+
     #window-header {
       h2 {
         @apply font-bold text-sm text-center flex-1;
@@ -354,15 +476,31 @@ nav {
   #finder {
     @apply absolute w-3xl left-40 top-20 shadow-2xl drop-shadow-2xl overflow-hidden rounded-xl;
 
+    @media (max-width: 768px) {
+      @apply static w-full h-full rounded-none max-w-none flex flex-col;
+    }
+
     .sidebar {
       @apply w-48 bg-gray-50 border-r border-gray-200 flex flex-col p-5 space-y-3;
 
+      @media (max-width: 768px) {
+        @apply w-full h-auto border-r-0 border-b flex-row overflow-x-auto;
+      }
+
       h3 {
         @apply text-xs font-medium text-gray-400 mb-1;
+
+        @media (max-width: 768px) {
+          @apply hidden;
+        }
       }
 
       ul {
         @apply space-y-1;
+
+        @media (max-width: 768px) {
+          @apply flex space-y-0 gap-4;
+        }
 
         .active {
           @apply bg-blue-100 text-blue-700;
@@ -374,6 +512,10 @@ nav {
 
         li {
           @apply flex items-center gap-2 px-3 py-2 rounded-md cursor-pointer transition-colors;
+
+          @media (max-width: 768px) {
+            @apply whitespace-nowrap;
+          }
         }
       }
     }
@@ -381,8 +523,16 @@ nav {
     .content {
       @apply flex-1 p-8 bg-white max-w-2xl relative;
 
+      @media (max-width: 768px) {
+        @apply max-w-full;
+      }
+
       li {
         @apply absolute flex items-center flex-col gap-3;
+
+        @media (max-width: 768px) {
+          @apply static inline-flex m-4;
+        }
 
         img {
           @apply object-contain object-center size-16 relative group-hover:scale-105;
@@ -390,6 +540,10 @@ nav {
 
         p {
           @apply text-sm text-center font-medium w-40;
+
+          @media (max-width: 768px) {
+            @apply w-auto;
+          }
         }
       }
     }
@@ -398,6 +552,10 @@ nav {
   #txtfile {
     @apply w-md absolute top-36 right-32 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
 
+    @media (max-width: 768px) {
+      @apply static w-full h-full rounded-none max-w-none;
+    }
+
     h2 {
       @apply font-bold text-sm text-center w-full;
     }
@@ -405,6 +563,10 @@ nav {
 
   #imgfile {
     @apply w-xl absolute top-40 left-2/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+
+    @media (max-width: 768px) {
+      @apply static w-full h-full rounded-none max-w-none;
+    }
 
     #window-header {
       p {
@@ -415,6 +577,10 @@ nav {
     .preview {
       @apply p-2 bg-gray-200 max-h-[70vh];
 
+      @media (max-width: 768px) {
+        @apply max-h-full h-full flex items-center;
+      }
+
       img {
         @apply w-full h-fit object-contain object-center;
       }
@@ -422,7 +588,11 @@ nav {
   }
 
   #home {
-    @apply relative z-0 max-sm:hidden;
+    @apply relative z-0;
+
+    @media (max-width: 640px) {
+      @apply hidden;
+    }
 
     ul {
       li {
