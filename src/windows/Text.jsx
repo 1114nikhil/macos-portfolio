@@ -11,12 +11,12 @@ const Text = () => {
   const { name, image, subtitle, description } = data;
 
   return (
-    <div>
-      <div id="window-header">
+    <div className="flex flex-col h-full w-full">
+      <div id="window-header" className="shrink-0">
         <WindowControls target="txtfile" />
         <h2>{name}</h2>
       </div>
-      <div className="p-5 overflow-y-auto h-[400px] bg-white text-black">
+      <div className="p-5 overflow-y-auto flex-1 bg-white text-black">
         {image && (
           <div className="mb-4">
             <img

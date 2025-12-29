@@ -1,7 +1,8 @@
 import { WindowControls } from '#components'
 import WindowWrapper from '#hoc/WindowWrapper'
 import { blogPosts } from "#constants";
-import { ChevronLeft,
+import {
+  ChevronLeft,
   ChevronRight,
   MoveRight,
   Copy,
@@ -9,37 +10,38 @@ import { ChevronLeft,
   Plus,
   Search,
   Share,
-  ShieldHalf, } from 'lucide-react'
+  ShieldHalf,
+} from 'lucide-react'
 import React from 'react'
 
 const Safari = () => {
   return (
-    <>
-      <div id="window-header">
-        <WindowControls target="safari"/>
-        <PanelLeft className='ml-10 icon'/>
+    <div className='flex flex-col h-full w-full'>
+      <div id="window-header" className='shrink-0'>
+        <WindowControls target="safari" />
+        <PanelLeft className='ml-10 icon' />
         <div className='flex item-center gap-1 ml-5'>
-            <ChevronLeft className='icon'/>
-            <ChevronRight className='icon'/>
+          <ChevronLeft className='icon' />
+          <ChevronRight className='icon' />
         </div>
         <div className='flex-1 flex-center gap3'>
-            <ShieldHalf className='icon'/>
-                <div className='search'>
-                    <Search className='icon'/>
-                    <input  type='text' placeholder='Search or enter website name'
-                    className='flex-1 w-2xs'/>
-                </div>
+          <ShieldHalf className='icon' />
+          <div className='search'>
+            <Search className='icon' />
+            <input type='text' placeholder='Search or enter website name'
+              className='flex-1 w-2xs' />
+          </div>
         </div>
         <div className="flex item-center gap-5">
-        <Share className='icon'/>
-        <Plus className='icon'/>
-        <Copy className='icon'/>
+          <Share className='icon' />
+          <Plus className='icon' />
+          <Copy className='icon' />
         </div>
       </div>
-      <div className='blog'>
+      <div className='blog flex-1 w-full overflow-y-auto'>
         <h2>My Profile</h2>
         <div className='space-y-8'>
-            {blogPosts.map(({ id, image, title, date, link }) => (
+          {blogPosts.map(({ id, image, title, date, link }) => (
             <div key={id} className="blog-post">
               <div className="col-span-2">
                 <img src={image} alt={title} />
@@ -55,11 +57,10 @@ const Safari = () => {
           ))}
         </div>
       </div>
-      
-    </>
+    </div>
   )
 }
 
-const SafariWindow= WindowWrapper(Safari,'safari');
+const SafariWindow = WindowWrapper(Safari, 'safari');
 
 export default SafariWindow
