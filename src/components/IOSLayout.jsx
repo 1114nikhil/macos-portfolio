@@ -36,7 +36,7 @@ const IOSLayout = () => {
     };
 
     return (
-        <div className="w-full h-screen overflow-hidden relative flex flex-col font-sans">
+        <div className="w-full min-h-[100svh] relative flex flex-col font-sans">
             {/* Top Status Bar */}
             <MobileStatusBar />
 
@@ -44,7 +44,7 @@ const IOSLayout = () => {
             <div className="flex-1 relative z-10 w-full overflow-hidden">
                 {/* Home Screen Layer - Always rendered */}
                 <div
-                    className={`absolute inset-0 w-full h-full pt-4 transition-transform duration-500 ease-out origin-center ${isAnyAppOpen ? 'z-0 scale-90 opacity-100 pointer-events-none' : 'z-10 scale-100 opacity-100'
+                    className={`fixed inset-0 w-full h-full pt-4 transition-transform duration-500 ease-out origin-center ${isAnyAppOpen ? 'z-0 scale-90 opacity-100 pointer-events-none' : 'z-10 scale-100 opacity-100'
                         }`}
                 >
                     <MobileAppsGrid onAppClick={handleAppClick} />
@@ -53,7 +53,7 @@ const IOSLayout = () => {
                 </div>
 
                 {/* Active Apps View - Render ALL open apps */}
-                <div className="absolute inset-0 z-20 pointer-events-none">
+                <div className="fixed inset-0 z-20 pointer-events-none">
                     {/* We use pointer-events-none on container so clicks pass through to home if no app is there (though full screen apps block it). 
                         But individual apps need pointer-events-auto. 
                         Actually, WindowWrapper makes them fixed full screen, so this container doesn't matter much 

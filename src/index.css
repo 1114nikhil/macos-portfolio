@@ -177,7 +177,14 @@ body {
     @apply bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
 
     @media (max-width: 768px) {
-      @apply static w-full h-full rounded-none;
+      position: fixed !important;
+      inset: 0 !important;
+      width: 100vw !important;
+      height: 100svh !important;
+      /* 🔑 CRITICAL */
+      max-width: none !important;
+      max-height: none !important;
+      border-radius: 0 !important;
     }
 
     .search {
@@ -194,6 +201,8 @@ body {
 
     .blog {
       @apply bg-white p-10 max-w-3xl mx-auto;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
 
       @media (max-width: 768px) {
         @apply p-4 max-w-full;
@@ -240,6 +249,9 @@ body {
       }
     }
   }
+
+
+
 
   #terminal {
     @apply bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
