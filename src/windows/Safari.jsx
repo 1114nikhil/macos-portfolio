@@ -14,28 +14,28 @@ import {
 } from 'lucide-react'
 import React from 'react'
 
-const Safari = () => {
+const Safari = ({ mobile }) => {
   return (
     <div className='flex flex-col h-full w-full'>
       <div id="window-header" className='shrink-0'>
-        <WindowControls target="safari" />
-        <PanelLeft className='ml-10 icon' />
-        <div className='flex item-center gap-1 ml-5'>
+        {!mobile && <WindowControls target="safari" />}
+        {!mobile && <PanelLeft className='ml-10 icon' />}
+        <div className={`flex item-center gap-1 ${mobile ? 'ml-0' : 'ml-5'}`}>
           <ChevronLeft className='icon' />
           <ChevronRight className='icon' />
         </div>
         <div className='flex-1 flex-center gap3'>
-          <ShieldHalf className='icon' />
+          {!mobile && <ShieldHalf className='icon' />}
           <div className='search'>
             <Search className='icon' />
             <input type='text' placeholder='Search or enter website name'
-              className='flex-1 w-2xs' />
+              className='flex-1 min-w-0' />
           </div>
         </div>
         <div className="flex item-center gap-5">
           <Share className='icon' />
-          <Plus className='icon' />
-          <Copy className='icon' />
+          {!mobile && <Plus className='icon' />}
+          {!mobile && <Copy className='icon' />}
         </div>
       </div>
       <div className='blog flex-1 w-full overflow-y-auto'>

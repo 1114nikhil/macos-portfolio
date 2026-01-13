@@ -45,9 +45,11 @@ const WindowWrapper = (Component, windowKey) => {
 
       if (props.mobile) {
         // Mobile Drag Logic (Swipe to close)
+        const dragHandle = el.querySelector("#drag-handle");
+
         const dragConfig = {
           type: "y",
-          trigger: el, // Use whole window as trigger
+          trigger: dragHandle || el, // Use bottom handle
           dragClickables: true,
           zIndexBoost: false,
           allowNativeTouchScrolling: true, // Allow scrolling content
@@ -137,6 +139,13 @@ const WindowWrapper = (Component, windowKey) => {
           }`}
       >
         <Component {...props} />
+        {/* Mobile Bottom Drag Handle */}
+        {props.mobile && (
+          <div
+            id="drag-handle"
+            className="absolute bottom-0 left-0 w-full h-8 z-[100] bg-transparent touch-action-none"
+          />
+        )}
       </section>
     );
   };

@@ -25,11 +25,15 @@ const Resume = ({ mobile }) => {
   /* -------------------------------
      Pinch to Zoom (Touch)
   -------------------------------- */
+  /* -------------------------------
+     Pinch to Zoom (Touch)
+  -------------------------------- */
   useEffect(() => {
     if (!mobile || !zoomRef.current) return;
 
     let startDist = 0;
     let startScale = scale;
+    let finalScale = scale;
 
     const getDistance = (touches) => {
       const [a, b] = touches;
@@ -40,6 +44,7 @@ const Resume = ({ mobile }) => {
       if (e.touches.length === 2) {
         startDist = getDistance(e.touches);
         startScale = scale;
+        finalScale = scale;
       }
     };
 
@@ -47,29 +52,38 @@ const Resume = ({ mobile }) => {
       if (e.touches.length === 2) {
         e.preventDefault();
         const newDist = getDistance(e.touches);
-        const nextScale = Math.min(
+        const newScale = Math.min(
           MAX_SCALE,
           Math.max(MIN_SCALE, (newDist / startDist) * startScale)
         );
 
-        setScale(nextScale);
+        finalScale = newScale;
 
+        // Visual preview only (relative to current rendered scale)
         gsap.set(zoomRef.current, {
-          scale: nextScale,
+          scale: newScale / scale,
+          transformOrigin: "top left",
         });
       }
     };
 
-    zoomRef.current.addEventListener("touchstart", onTouchStart, {
-      passive: false,
-    });
-    zoomRef.current.addEventListener("touchmove", onTouchMove, {
-      passive: false,
-    });
+    const onTouchEnd = (e) => {
+      // Commit scale if changed
+      if (finalScale !== scale) {
+        setScale(finalScale);
+        gsap.set(zoomRef.current, { clearProps: "transform" });
+      }
+    };
+
+    const el = zoomRef.current;
+    el.addEventListener("touchstart", onTouchStart, { passive: true });
+    el.addEventListener("touchmove", onTouchMove, { passive: false });
+    el.addEventListener("touchend", onTouchEnd, { passive: true });
 
     return () => {
-      zoomRef.current?.removeEventListener("touchstart", onTouchStart);
-      zoomRef.current?.removeEventListener("touchmove", onTouchMove);
+      el.removeEventListener("touchstart", onTouchStart);
+      el.removeEventListener("touchmove", onTouchMove);
+      el.removeEventListener("touchend", onTouchEnd);
     };
   }, [mobile, scale]);
 
@@ -80,13 +94,7 @@ const Resume = ({ mobile }) => {
     const now = Date.now();
     if (now - lastTap.current < 300) {
       const next = scale > 1 ? 1 : 2;
-
       setScale(next);
-      gsap.to(zoomRef.current, {
-        scale: next,
-        duration: 0.25,
-        ease: "power2.out",
-      });
     }
     lastTap.current = now;
   };
@@ -114,11 +122,10 @@ const Resume = ({ mobile }) => {
         <div className="inline-block min-w-full">
           <div
             ref={zoomRef}
-            className="origin-top touch-none"
-            style={{ transform: `scale(${scale})` }}
+            className="origin-top"
           >
             <Document file="files/Nikhil T.Kochparambil(Software Engineer).pdf">
-              <Page pageNumber={1} />
+              <Page pageNumber={1} scale={scale} />
             </Document>
           </div>
         </div>
