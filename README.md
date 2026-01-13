@@ -89,3 +89,8 @@ npm install
 ```bash
 npm run dev
 ```
+### Firebase Deployment
+```bash
+npm run build
+firebase deploy
+```
